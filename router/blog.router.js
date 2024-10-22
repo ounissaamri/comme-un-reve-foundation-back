@@ -4,7 +4,7 @@ import {getBlogctrl} from "../controller/blog.controller.js";
 
 
 const router = express.Router();
-const getBlog = router.get('/blog', getBlogctrl)
+const getBlog = router.get('/blog', getBlogctrl);
 
 
 
