@@ -7,8 +7,8 @@ const router = express.Router();
 
 const createBlog=router.post('/blog',createBlogCtrl)
 const getBlog = router.get('/blog', getBlogctrl);
-const deleteBlog = router.delete('/blog',deleteBlogCtrl)
-const putBlog = router.put('/blog',updateBlogCtrl)
+const deleteBlog = router.delete('/blog/:id',deleteBlogCtrl)
+const putBlog = router.put('/blog/:id',updateBlogCtrl)
 
 
 
