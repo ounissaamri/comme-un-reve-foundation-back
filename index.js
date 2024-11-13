@@ -5,6 +5,16 @@ import  File from './model/file.model.js';
 import multer from 'multer';
 import Stripe from 'stripe';
 import cors from 'cors';
+import 'dotenv/config';
+
+// import * as dotenv from 'dotenv';
+// dotenv.config();
+
+// import { configDotenv } from "dotenv";
+
+
+
+
 
 const stripe = new Stripe('sk_test_46cspu9EY5XrDtsjPCdJsxnz00TEccLmTK');
 
@@ -16,14 +26,15 @@ app.use(cors())
 // URI de connexion correct
 const uri = "mongodb+srv://amriounissa:FdRE8ZoKhAH4UoV6@cluster0.cjznt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
+console.log('variable', process.env )
 // Connexion à MongoDB Atlas
-mongoose.connect(uri)
-.then(() => {
-    console.log('Connecté à MongoDB Atlas avec succès!');
-})
-.catch((err) => {
-    console.error('Erreur de connexion à MongoDB:', err);
-});
+// mongoose.connect(uri)
+// .then(() => {
+//     console.log('Connecté à MongoDB Atlas avec succès!');
+// })
+// .catch((err) => {
+//     console.error('Erreur de connexion à MongoDB:', err);
+// });
 
 // Route de la page d'accueil
 app.get('/', (req, res) => {
@@ -51,9 +62,9 @@ const upload = multer({ storage });
       res.status(500).json({ message: 'Error retrieving file', error });
     }
   });
+  
   app.post('/api/blog/upload', upload.single('file'), async (req,res,) => {
     const { originalname, mimetype, buffer } = req.file;
-    console.log(req.file.originalname)
   
     const newFile = new File({
       filename: originalname,
