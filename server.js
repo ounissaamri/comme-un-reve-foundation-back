@@ -12,10 +12,7 @@ const port = 3000;
 const uri = "mongodb+srv://amriounissa:FdRE8ZoKhAH4UoV6@cluster0.cjznt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Connexion à MongoDB Atlas
-mongoose.connect(uri, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true
-})
+mongoose.connect(uri)
 .then(() => {
     console.log('Connecté à MongoDB Atlas avec succès!');
 })
