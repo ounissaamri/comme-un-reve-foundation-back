@@ -8,6 +8,10 @@ const blog = mongoose.Schema({
     content:{
         type: String,
         required: false,
+    },
+    image: {
+        type: String,
+        required: true
     }
 });
 export default mongoose.model('blogs',blog)
