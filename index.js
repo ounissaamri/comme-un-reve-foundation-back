@@ -12,29 +12,23 @@ import 'dotenv/config';
 
 // import { configDotenv } from "dotenv";
 
-
-
-
-
-const stripe = new Stripe('sk_test_46cspu9EY5XrDtsjPCdJsxnz00TEccLmTK');
-
-// Créer une application Express
+const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const app = express();
 const port = 3000;
-app.use(cors())
+app.use(cors());
 
 // URI de connexion correct
-const uri = "mongodb+srv://amriounissa:FdRE8ZoKhAH4UoV6@cluster0.cjznt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.MONGO_DB_ID}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_CLUSTER}.cjznt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-console.log('variable', process.env )
+console.log('variable', process.env );
 // Connexion à MongoDB Atlas
-// mongoose.connect(uri)
-// .then(() => {
-//     console.log('Connecté à MongoDB Atlas avec succès!');
-// })
-// .catch((err) => {
-//     console.error('Erreur de connexion à MongoDB:', err);
-// });
+mongoose.connect(uri)
+.then(() => {
+    console.log('Connecté à MongoDB Atlas avec succès!');
+})
+.catch(err => {
+    console.error('Erreur de connexion à MongoDB:', err);
+});
 
 // Route de la page d'accueil
 app.get('/', (req, res) => {
@@ -100,6 +94,7 @@ const upload = multer({ storage });
       res.status(500).json({ error: 'Une erreur est survenue' });
     }
   });
+
   app.post('/api/create-subscription-session', async (req, res) => {
     const { customerEmail, priceId, successUrl, cancelUrl } = req.body;
   
@@ -153,7 +148,6 @@ const upload = multer({ storage });
       res.status(500).json({ error: 'Erreur lors de l\'annulation de l\'abonnement.' });
     }
   });
-
 
 // Démarrer le serveur
 app.listen(port, () => {
