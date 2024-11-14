@@ -20,7 +20,7 @@ app.use(cors());
 // URI de connexion correct
 const uri = `mongodb+srv://${process.env.MONGO_DB_ID}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_CLUSTER}.cjznt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-console.log('variable', process.env.NODE_ENV);
+console.log('variable', process.env);
 // Connexion à MongoDB Atlas
 mongoose.connect(uri)
 .then(() => {
