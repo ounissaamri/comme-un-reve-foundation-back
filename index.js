@@ -6,6 +6,7 @@ import multer from 'multer';
 import Stripe from 'stripe';
 import cors from 'cors';
 import 'dotenv/config';
+import {RouterUser } from './router/user.router.js'
 
 // import * as dotenv from 'dotenv';
 // dotenv.config();
@@ -40,6 +41,9 @@ const upload = multer({ storage });
   //api
   app.use(express.json());
   app.use('/api/blog/', RouterBlog.createBlog);
+
+  app.use('/api/login', RouterUser.loginCtrl)
+
   
 
 
