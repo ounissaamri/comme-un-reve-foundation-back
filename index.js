@@ -42,7 +42,7 @@ const upload = multer({ storage });
   app.use(express.json());
   app.use('/api/blog/', RouterBlog.createBlog);
 
-  app.use('/api/login', RouterUser.loginCtrl)
+  app.use('/api/user', RouterUser.loginUser)
 
   
 
