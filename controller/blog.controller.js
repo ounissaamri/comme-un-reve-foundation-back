@@ -2,14 +2,25 @@ import blog from "../model/blog.model.js";
 
 // Sert à récuperer tout les blog
 export const getBlogsctrl = async (req, res) => {
-    const blogs = await blog.find({});
+    const blogs = await blog.find({}); 
     res.status(200).json(blogs)
 }
 
+// Sert à récuperer tout les blog
+export const getBlogCtrl = async (req, res) => {
+
+    const id = req.params.id;
+    const oneBlog = await blog.findById(id); 
+    res.status(200).json(oneBlog)
+}
+
 export const createBlogCtrl = async (req,res)=>{
-    const u = new blog(req.body)
+    const newBlog = new blog(req.body)
     try{
-        const response = await u.save()
+        //sauvegarder dans BDD
+        const response = await newBlog.save()
+
+         //reponse au front
         res.status(201).json({response,message: ' blog  crée'})
     }catch(err){
         res.status(500).json({erreur:"création impossible"})

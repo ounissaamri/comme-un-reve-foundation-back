@@ -15,3 +15,5 @@ const blog = mongoose.Schema({
     }
 });
 export default mongoose.model('blogs',blog)
+
+
