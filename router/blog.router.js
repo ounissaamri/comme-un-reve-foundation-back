@@ -1,12 +1,13 @@
 import express from "express";
-import {getBlogctrl,createBlogCtrl,deleteBlogCtrl,updateBlogCtrl} from "../controller/blog.controller.js";
+import {getBlogsctrl,createBlogCtrl,deleteBlogCtrl,updateBlogCtrl} from "../controller/blog.controller.js";
 
 
 
 const router = express.Router();
 
+// CRUD des blogs
 const createBlog=router.post('/blog',createBlogCtrl)
-const getBlog = router.get('/blog', getBlogctrl);
+const getBlogs = router.get('/blogs', getBlogsctrl);
 const deleteBlog = router.delete('/blog/:id',deleteBlogCtrl)
 const putBlog = router.put('/blog/:id',updateBlogCtrl)
 
@@ -17,7 +18,7 @@ const putBlog = router.put('/blog/:id',updateBlogCtrl)
 
 export const RouterBlog = {
     
-    getBlog,
+    getBlogs,
     createBlog,
     deleteBlog,
     putBlog

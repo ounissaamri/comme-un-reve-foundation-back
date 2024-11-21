@@ -1,6 +1,7 @@
 import User from './../model/user.model.js'
 import bcrypt from "bcrypt";
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+
 
 
 // function authenticate 
