@@ -1,13 +1,10 @@
 import User from './../model/user.model.js'
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
+import { generateToken } from '../utils/token.js';
 
-
-
-// function authenticate 
 export const loginCtrl = async (req,res)=> {
-    // console.log(req.body);
-    // return;
+    console.log('okkokok')
     const email = req.body.email;
     const password = req.body.password;
     // bcrypt authentification 
@@ -17,27 +14,24 @@ export const loginCtrl = async (req,res)=> {
         if(user === null) {
             res.status(404).json({message: 'Cet utilisateur existe pas'})
         }
-        
         bcrypt.compare(password, user.password, function(err, result) {
             if(err || result == false){
-                res.status(401).json({erreur:"Mot de passe ou utilisateur incorect"})
-                console.log(result)
-                return
+                res.status(401).json({erreur:"Mot de passe ou utilisateur incorect"});
+                return;
             }
-            console.log("OKOKOKOKOK", result);
-            const accessToken = jwt.sign({ userId: user._id }, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", { expiresIn: '1d' });
-            const refreshToken = jwt.sign({ userId: user._id }, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", { expiresIn: '7d' });
-            res.status(200).json({user,accessToken, refreshToken})
+        
+            res.status(200).json({
+                user,
+                token: generateToken({ userId: user._id }, process.env.EXPIRE_IN_JWT ),
+                refreshToken: generateToken({ userId: user._id }, process.env.EXPIRE_IN_JWT )
+            });
         })
-        //setCurrentUser(user)
     } 
     catch(err)  {
         console.log("erreur",err);
         res.status(401).json({erreur:"cet utilisateur n'existe pas"})
     }
-
-    
-}
+};
 
 export const createUserCtrl = async (req,res)=>{
     const user = new User(req.body)
@@ -45,7 +39,7 @@ export const createUserCtrl = async (req,res)=>{
     try {
        let passwordHash = await bcrypt.hash(user.password, 10)
        console.log(passwordHash);
-       user.password = passwordHash  //stock  le mdp hasher dans le mdp
+       user.password = passwordHash;  //stock  le mdp hasher dans le mdp
     try{
         const response = await user.save()
         res.status(201).json({response,message: 'Utilisateur crée'})

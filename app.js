@@ -1,48 +1,29 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import { RouterBlog } from './router/blog.router.js';
+import RouterBlog  from './router/blog.router.js';
 import Stripe from 'stripe';
-import cors from 'cors';
 import 'dotenv/config';
-import {RouterUser } from './router/user.router.js';
+import RouterAuth  from './router/auth.router.js';
 import RouterFile from './router/file.router.js';
-
+import connectDatabase from './config/database.js';
+import { authenticate } from './middleware/authenticate.js';
+import cors from 'cors';
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const app = express();
-const port = 3000;
-
-app.use(express.json());
 app.use(cors());
 
+app.use(express.json());
+// connexion à la base de données
+connectDatabase();
 
-// URI de connexion correct
-const uri = `mongodb+srv://${process.env.MONGO_DB_ID}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_CLUSTER}.cjznt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-
-// Connexion à MongoDB Atlas
-mongoose.connect(uri)
-.then(() => {
-    console.log('Connecté à MongoDB Atlas avec succès!');
-})
-.catch(err => {
-    console.error('Erreur de connexion à MongoDB:', err);
-});
-
-// Route de la page d'accueil
 app.get('/', (req, res) => {
-    res.send('Bienvenue sur la première page de mon application Node.js!');
-  });
-
-  //api
-  app.use('/api/blog/', RouterBlog.createBlog);
-
-  app.use('/api/user', RouterUser.loginUser)
-
-  app.use('/api/file/', RouterFile)
+    res.send('Backend Comme un rêve works');
+});
+// la fonction authenticate permet de verifier si le token a été envoye de la part du front sinon une erreur est envoyé
+  app.use('/api/auth/', RouterAuth)
+  app.use('/api/blog', authenticate, RouterBlog);
+  app.use('/api/file', authenticate, RouterFile);
   
-
-
- 
 
   app.post('/api/create-checkout-session', async (req, res) => {
     try {
@@ -118,7 +99,5 @@ app.get('/', (req, res) => {
     }
   });
 
-// Démarrer le serveur
-app.listen(port, () => {
-  console.log(`L'application écoute sur http://localhost:${port}`);
-});
+export default app;
+
