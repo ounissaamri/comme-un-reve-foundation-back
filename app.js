@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 // la fonction authenticate permet de verifier si le token a été envoye de la part du front sinon une erreur est envoyé
   app.use('/api/auth/', RouterAuth)
   app.use('/api/blog', authenticate, RouterBlog);
-  app.use('/api/file', authenticate, RouterFile);
+  app.use('/api/file', RouterFile);
   
 
   app.post('/api/create-checkout-session', async (req, res) => {
