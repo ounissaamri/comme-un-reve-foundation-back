@@ -4,6 +4,8 @@ import Stripe from 'stripe';
 import 'dotenv/config';
 import RouterAuth  from './router/auth.router.js';
 import RouterFile from './router/file.router.js';
+import RouterEmail from './router/email.router.js';
+
 import connectDatabase from './config/database.js';
 import { authenticate } from './middleware/authenticate.js';
 import cors from 'cors';
@@ -23,6 +25,13 @@ app.get('/', (req, res) => {
   app.use('/api/auth/', RouterAuth)
   app.use('/api/blog', RouterBlog);
   app.use('/api/file', RouterFile);
+  app.use('/api/email', RouterEmail);
+
+
+
+
+
+
   
 
   app.post('/api/create-checkout-session', async (req, res) => {
