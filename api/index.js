@@ -5,6 +5,7 @@ import 'dotenv/config';
 import RouterAuth  from '../router/auth.router.js';
 import RouterFile from '../router/file.router.js';
 import RouterEmail from '../router/email.router.js';
+import mongoose from 'mongoose';
 
 import connectDatabase from '../config/database.js';
 import { authenticate } from '../middleware/authenticate.js';
