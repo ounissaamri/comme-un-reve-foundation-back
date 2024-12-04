@@ -18,7 +18,7 @@ app.use(express.json());
 // connexion à la base de données
 connectDatabase();
 
-app.get('/', (req, res) => {
+app.use('/', (req, res) => {
     res.send('Backend Comme un rêve works');
 });
 // la fonction authenticate permet de verifier si le token a été envoye de la part du front sinon une erreur est envoyé
