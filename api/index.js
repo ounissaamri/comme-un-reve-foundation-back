@@ -14,7 +14,7 @@ import cors from 'cors';
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const app = express();
 app.use(cors());
-
+ 
 app.use(express.json());
 // connexion à la base de données
 function connect(){
