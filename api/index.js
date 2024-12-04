@@ -1,13 +1,13 @@
 import express from 'express';
-import RouterBlog  from './router/blog.router.js';
+import RouterBlog  from '../router/blog.router.js';
 import Stripe from 'stripe';
 import 'dotenv/config';
-import RouterAuth  from './router/auth.router.js';
-import RouterFile from './router/file.router.js';
-import RouterEmail from './router/email.router.js';
+import RouterAuth  from '../router/auth.router.js';
+import RouterFile from '../router/file.router.js';
+import RouterEmail from '../router/email.router.js';
 
-import connectDatabase from './config/database.js';
-import { authenticate } from './middleware/authenticate.js';
+import connectDatabase from '../config/database.js';
+import { authenticate } from '../middleware/authenticate.js';
 import cors from 'cors';
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
