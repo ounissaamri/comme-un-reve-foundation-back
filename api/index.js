@@ -16,7 +16,17 @@ app.use(cors());
 
 app.use(express.json());
 // connexion à la base de données
-connectDatabase();
+function connect(){
+  `mongodb+srv://${process.env.MONGO_DB_ID}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_CLUSTER}.cjznt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+    mongoose.connect(uri)
+    .then(() => {
+        console.log('Connecté à MongoDB Atlas avec succès!');
+    })
+    .catch(err => {
+        console.error('Erreur de connexion à MongoDB:', err);
+    });
+}  
+connect()
 
 app.use('/', (req, res) => {
     res.send('Backend Comme un rêve works');
