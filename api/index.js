@@ -27,7 +27,7 @@ function connect(){
         console.error('Erreur de connexion à MongoDB:', err);
     });
 }  
-connect()
+connect()  
 
 app.use('/', (req, res) => {
     res.send('Backend Comme un rêve works');
