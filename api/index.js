@@ -27,9 +27,9 @@ function connect(){
         console.error('Erreur de connexion à MongoDB:', err);
     });
 }  
-connect()  
+connect();  
 
-app.use('/', (req, res) => {
+app.get('', (req, res) => {
     res.send('Backend Comme un rêve works');
 });
 // la fonction authenticate permet de verifier si le token a été envoye de la part du front sinon une erreur est envoyé
