@@ -1,10 +1,10 @@
 import express from "express";
-import { sendEmailCtrl , sendEmailPartenaireCtrl} from './../controller/email.controller.js'
+import { sendEmailBenevoleCtrl , sendEmailPartenaireCtrl} from './../controller/email.controller.js'
 
 
 const router = express.Router();
 
-router.post('/send-benevole',sendEmailCtrl)
+router.post('/send-benevole',sendEmailBenevoleCtrl)
 router.post('/send-partenaire',sendEmailPartenaireCtrl)
 
 
